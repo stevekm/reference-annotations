@@ -31,13 +31,15 @@ The following files are created:
 
 - `gencode.v19.annotation.genes.bed`: Gencode hg19 gene annotations & genomic regions
 
-- `Homo_sapiens.GRCh37.82.noGLMT.chr.bed`: Ensembl hg19 gene annotations & genomic regions, with the following lines removed:
+- `Homo_sapiens.GRCh37.82.noGLMT.chr.bed`: Ensembl hg19 gene annotations & genomic regions, with the following modifications:
   
-  - file comments
+  - removed file comments
   
-  - entries with 'MT' listed for chromosome 
+  - removed entries with 'MT' listed for chromosome 
   
-  - entries with 'GL....' listed for chromosome, e.g. 'GL000229.1'
+  - removed entries with 'GL....' listed for chromosome, e.g. 'GL000229.1'
+  
+  - added 'chr' to the start of all chromosome labels
 
 # Notes
 
