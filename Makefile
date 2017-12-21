@@ -7,6 +7,7 @@ none:
 # make both sets of annotations
 all: gencode ensembl
 
+
 # ~~~~~ GENCODE ~~~~~ #
 # generate the Gencode hg19 annotations .bed file
 gencode: gencode.v19.annotation.genes.bed
@@ -20,7 +21,7 @@ gencode.v19.annotation.genes.bed: gencode.v19.annotation.gtf.gz
 
 # ~~~~~ ENSEMBL ~~~~~ #
 # generate the Ensembl hg19 annotations .bed file
-ensembl: Homo_sapiens.GRCh37.82.noGLMT.chr.bed
+ensembl: Homo_sapiens.GRCh37.82.noGLMT.chr.genes.bed
 
 Homo_sapiens.GRCh37.82.gtf.gz: 
 	wget ftp://ftp.ensembl.org/pub/grch37/release-84/gtf/homo_sapiens/Homo_sapiens.GRCh37.82.gtf.gz
@@ -37,8 +38,15 @@ Homo_sapiens.GRCh37.82.noGLMT.chr.gtf: Homo_sapiens.GRCh37.82.noGLMT.gtf
 Homo_sapiens.GRCh37.82.noGLMT.chr.bed: Homo_sapiens.GRCh37.82.noGLMT.chr.gtf
 	gtf2bed < Homo_sapiens.GRCh37.82.noGLMT.chr.gtf > Homo_sapiens.GRCh37.82.noGLMT.chr.bed
 
+# extract genes
+Homo_sapiens.GRCh37.82.noGLMT.chr.genes.bed: Homo_sapiens.GRCh37.82.noGLMT.chr.bed
+	grep -w gene Homo_sapiens.GRCh37.82.noGLMT.chr.bed > Homo_sapiens.GRCh37.82.noGLMT.chr.genes.bed
 
+
+
+# ~~~~~ CLEAN UP ~~~~~ #
 .INTERMEDIATE: gencode.v19.annotation.gtf.gz \
 	Homo_sapiens.GRCh37.82.gtf.gz \
 	Homo_sapiens.GRCh37.82.noGLMT.gtf \
+	Homo_sapiens.GRCh37.82.noGLMT.chr.bed \
 	Homo_sapiens.GRCh37.82.noGLMT.chr.gtf

@@ -31,7 +31,7 @@ The following files are created:
 
 - `gencode.v19.annotation.genes.bed`: Gencode hg19 gene annotations & genomic regions
 
-- `Homo_sapiens.GRCh37.82.noGLMT.chr.bed`: Ensembl hg19 gene annotations & genomic regions, with the following modifications:
+- `Homo_sapiens.GRCh37.82.noGLMT.chr.genes.bed`: Ensembl hg19 gene annotations & genomic regions, with the following modifications:
   
   - removed file comments
   
