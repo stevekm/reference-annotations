@@ -1,5 +1,5 @@
 # reference-annotations
-Makefile for building .bed formatted reference annotation files for hg19 genes &amp; genomic regions
+Makefile for building .bed formatted reference annotation files for hg19 human genome genes &amp; genomic regions
 
 # Usage
 
