@@ -10,36 +10,35 @@ git clone https://github.com/stevekm/reference-annotations.git
 cd reference-annotations
 ```
 
-Generate the desired annotation files; either `gencode`, `ensembl`, or `all` for both Gencode and Ensembl.
+Generate the desired annotation files from the available entries:
+
+- `all`, `gencode-hg19`, `gencode-hg38`, `ensembl-hg19`, `ensembl-hg38`
 
 ```
 make all
 
 # or
 
-make gencode
+make gencode-hg19
 
 # or
 
-make ensembl
+make ensembl-hg19
 
+# etc. ....
 ```
 
 # Output
 
 The following files are created:
 
-- `gencode.v19.annotation.genes.bed`: Gencode hg19 gene annotations & genomic regions
+- `gencode-hg19`: `gencode.v19.annotation.genes.bed`; Gencode hg19 gene annotations & genomic regions
 
-- `Homo_sapiens.GRCh37.82.noGLMT.chr.genes.bed`: Ensembl hg19 gene annotations & genomic regions, with the following modifications:
-  
-  - removed file comments
-  
-  - removed entries with 'MT' listed for chromosome 
-  
-  - removed entries with 'GL....' listed for chromosome, e.g. 'GL000229.1'
-  
-  - added 'chr' to the start of all chromosome labels
+- `gencode-hg38`: `gencode.v27.annotation.genes.bed`; Gencode hg38 gene annotations & genomic regions
+
+- `ensembl-hg19`: `Homo_sapiens.GRCh37.82.chr.bed`; Ensembl hg19 gene annotations & genomic regions
+
+- `ensembl-hg38`: `Homo_sapiens.GRCh38.91.chr.bed`; Ensembl hg38 gene annotations & genomic regions
 
 # Notes
 
@@ -53,4 +52,6 @@ Intermediate files are removed by default. If you want to keep them, then commen
 
 # Resources
 
-Gencode Releases: https://www.gencodegenes.org/releases/
+- Gencode Releases: https://www.gencodegenes.org/releases/
+
+- Ensembl Releases: https://useast.ensembl.org/info/data/ftp/index.html
