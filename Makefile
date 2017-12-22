@@ -7,11 +7,19 @@ none:
 # make all sets of annotations
 all: gencode-hg19 ensembl-hg19 gencode-hg38 ensembl-hg38
 
+gencode-hg19: gencode.v19.annotation.genes.bed
+
+gencode-hg38: gencode.v27.annotation.genes.bed
+
+ensembl-hg19: Homo_sapiens.GRCh37.82.chr.bed
+
+ensembl-hg38: Homo_sapiens.GRCh38.91.chr.bed
+
+
+
 
 # ~~~~~ GENCODE hg19 ~~~~~ #
 # generate the Gencode hg19 annotations .bed file
-gencode-hg19: gencode.v19.annotation.genes.bed
-
 gencode.v19.annotation.gtf.gz: 
 	wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_19/gencode.v19.annotation.gtf.gz
 
@@ -23,9 +31,6 @@ gencode.v19.annotation.genes.bed: gencode.v19.annotation.gtf.gz
 
 # ~~~~~ GENCODE hg38 ~~~~~ #
 # generate the Gencode hg38 annotations .bed file
-
-gencode-hg38: gencode.v27.annotation.genes.bed
-
 gencode.v27.annotation.gtf.gz: 
 	wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_27/gencode.v27.annotation.gtf.gz
 
@@ -36,8 +41,6 @@ gencode.v27.annotation.genes.bed: gencode.v27.annotation.gtf.gz
 
 # ~~~~~ ENSEMBL hg19 ~~~~~ #
 # generate the Ensembl hg19 annotations .bed file
-ensembl-hg19: Homo_sapiens.GRCh37.82.chr.bed
-
 Homo_sapiens.GRCh37.82.chr.gtf.gz: 
 	wget ftp://ftp.ensembl.org/pub/grch37/release-84/gtf/homo_sapiens/Homo_sapiens.GRCh37.82.chr.gtf.gz
 
@@ -55,8 +58,6 @@ Homo_sapiens.GRCh37.82.chr.bed: Homo_sapiens.GRCh37.82.chr.gtf
 
 # ~~~~~ ENSEMBL hg38 ~~~~~ #
 # generate the Ensembl hg19 annotations .bed file
-ensembl-hg38: Homo_sapiens.GRCh38.91.chr.bed
-
 Homo_sapiens.GRCh38.91.chr.gtf.gz:
 	wget ftp://ftp.ensembl.org/pub/release-91/gtf/homo_sapiens/Homo_sapiens.GRCh38.91.chr.gtf.gz
 
