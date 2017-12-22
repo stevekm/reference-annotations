@@ -5,10 +5,10 @@
 none:
 
 # make all sets of annotations
-all: gencode ensembl gencode-hg38
+all: gencode ensembl gencode-hg38 ensembl-hg38
 
 
-# ~~~~~ GENCODE ~~~~~ #
+# ~~~~~ GENCODE hg19 ~~~~~ #
 # generate the Gencode hg19 annotations .bed file
 gencode: gencode.v19.annotation.genes.bed
 
@@ -34,7 +34,7 @@ gencode.v27.annotation.genes.bed: gencode.v27.annotation.gtf.gz
 
 
 
-# ~~~~~ ENSEMBL ~~~~~ #
+# ~~~~~ ENSEMBL hg19 ~~~~~ #
 # generate the Ensembl hg19 annotations .bed file
 ensembl: Homo_sapiens.GRCh37.82.noGLMT.chr.genes.bed
 
@@ -59,11 +59,33 @@ Homo_sapiens.GRCh37.82.noGLMT.chr.genes.bed: Homo_sapiens.GRCh37.82.noGLMT.chr.b
 
 
 
+
+# ~~~~~ ENSEMBL hg38 ~~~~~ #
+# generate the Ensembl hg19 annotations .bed file
+ensembl-hg38: Homo_sapiens.GRCh38.91.chr.bed
+
+Homo_sapiens.GRCh38.91.chr.gtf.gz:
+	wget ftp://ftp.ensembl.org/pub/release-91/gtf/homo_sapiens/Homo_sapiens.GRCh38.91.chr.gtf.gz
+
+# remove comment lines
+# extract only 'gene' entries
+# add 'chr' to first entry, change 'chrMT' to 'chrM'
+Homo_sapiens.GRCh38.91.chr.gtf: Homo_sapiens.GRCh38.91.chr.gtf.gz
+	zcat Homo_sapiens.GRCh38.91.chr.gtf.gz | grep -Ev '^#' | grep -w 'gene' | sed -e 's/^/chr/' -e 's/^chrMT/chrM/' > Homo_sapiens.GRCh38.91.chr.gtf
+
+# convert to .bed
+Homo_sapiens.GRCh38.91.chr.bed: Homo_sapiens.GRCh38.91.chr.gtf
+	gtf2bed < Homo_sapiens.GRCh38.91.chr.gtf > Homo_sapiens.GRCh38.91.chr.bed
+
+
 # ~~~~~ CLEAN UP ~~~~~ #
 .INTERMEDIATE: gencode.v19.annotation.gtf.gz \
 	Homo_sapiens.GRCh37.82.gtf.gz \
 	Homo_sapiens.GRCh37.82.noGLMT.gtf \
 	Homo_sapiens.GRCh37.82.noGLMT.chr.bed \
 	Homo_sapiens.GRCh37.82.noGLMT.chr.gtf \
-	gencode.v27.annotation.gtf.gz
+	gencode.v27.annotation.gtf.gz \
+	Homo_sapiens.GRCh38.91.chr.gtf \
+	Homo_sapiens.GRCh38.91.chr.gtf.gz
+	
 	
