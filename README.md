@@ -32,15 +32,15 @@ make ensembl-hg19
 
 The following files are created:
 
-- `gencode-hg19`: `gencode.v19.annotation.genes.bed`; Gencode hg19 gene annotations & genomic regions
+- `gencode-hg19`: `gencode.v19.annotation.genes.bed`; Gencode hg19 human gene annotations & genomic regions
 
-- `gencode-hg38`: `gencode.v27.annotation.genes.bed`; Gencode hg38 gene annotations & genomic regions
+- `gencode-hg38`: `gencode.v27.annotation.genes.bed`; Gencode hg38 human gene annotations & genomic regions
 
-- `ensembl-hg19`: `Homo_sapiens.GRCh37.82.chr.bed`; Ensembl hg19 gene annotations & genomic regions
+- `ensembl-hg19`: `Homo_sapiens.GRCh37.82.chr.bed`; Ensembl hg19 human gene annotations & genomic regions
 
-- `ensembl-hg38`: `Homo_sapiens.GRCh38.91.chr.bed`; Ensembl hg38 gene annotations & genomic regions
+- `ensembl-hg38`: `Homo_sapiens.GRCh38.91.chr.bed`; Ensembl hg38 human gene annotations & genomic regions
 
-- `ensembl-mm10`: `Mus_musculus.GRCm38.91.chr.bed`; Ensembl mm10 gene annotations & genomic regions
+- `ensembl-mm10`: `Mus_musculus.GRCm38.91.chr.bed`; Ensembl mm10 mouse gene annotations & genomic regions
 
 # Notes
 
