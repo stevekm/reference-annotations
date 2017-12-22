@@ -64,4 +64,6 @@ Homo_sapiens.GRCh37.82.noGLMT.chr.genes.bed: Homo_sapiens.GRCh37.82.noGLMT.chr.b
 	Homo_sapiens.GRCh37.82.gtf.gz \
 	Homo_sapiens.GRCh37.82.noGLMT.gtf \
 	Homo_sapiens.GRCh37.82.noGLMT.chr.bed \
-	Homo_sapiens.GRCh37.82.noGLMT.chr.gtf
+	Homo_sapiens.GRCh37.82.noGLMT.chr.gtf \
+	gencode.v27.annotation.gtf.gz
+	
