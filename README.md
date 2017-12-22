@@ -12,7 +12,7 @@ cd reference-annotations
 
 Generate the desired annotation files from the available entries:
 
-- `all`, `gencode-hg19`, `gencode-hg38`, `ensembl-hg19`, `ensembl-hg38`
+- `all`, `gencode-hg19`, `gencode-hg38`, `ensembl-hg19`, `ensembl-hg38`, `ensembl-mm10`
 
 ```
 make all
@@ -39,6 +39,8 @@ The following files are created:
 - `ensembl-hg19`: `Homo_sapiens.GRCh37.82.chr.bed`; Ensembl hg19 gene annotations & genomic regions
 
 - `ensembl-hg38`: `Homo_sapiens.GRCh38.91.chr.bed`; Ensembl hg38 gene annotations & genomic regions
+
+- `ensembl-mm10`: `Mus_musculus.GRCm38.91.chr.bed`; Ensembl mm10 gene annotations & genomic regions
 
 # Notes
 

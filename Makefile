@@ -5,7 +5,7 @@
 none:
 
 # make all sets of annotations
-all: gencode-hg19 ensembl-hg19 gencode-hg38 ensembl-hg38
+all: gencode-hg19 ensembl-hg19 gencode-hg38 ensembl-hg38 ensembl-mm10
 
 gencode-hg19: gencode.v19.annotation.genes.bed
 
@@ -14,6 +14,8 @@ gencode-hg38: gencode.v27.annotation.genes.bed
 ensembl-hg19: Homo_sapiens.GRCh37.82.chr.bed
 
 ensembl-hg38: Homo_sapiens.GRCh38.91.chr.bed
+
+ensembl-mm10: Mus_musculus.GRCm38.91.chr.bed
 
 
 
@@ -72,6 +74,26 @@ Homo_sapiens.GRCh38.91.chr.bed: Homo_sapiens.GRCh38.91.chr.gtf
 	gtf2bed < Homo_sapiens.GRCh38.91.chr.gtf > Homo_sapiens.GRCh38.91.chr.bed
 
 
+
+
+# ~~~~~ ENSEMBL mm10 ~~~~~ #
+# generate the Ensembl hg19 annotations .bed file
+Mus_musculus.GRCm38.91.chr.gtf.gz:
+	wget ftp://ftp.ensembl.org/pub/release-91/gtf/mus_musculus/Mus_musculus.GRCm38.91.chr.gtf.gz
+
+# remove comment lines
+# extract only 'gene' entries
+# add 'chr' to first entry, change 'chrMT' to 'chrM'
+Mus_musculus.GRCm38.91.chr.gtf: Mus_musculus.GRCm38.91.chr.gtf.gz
+	zcat Mus_musculus.GRCm38.91.chr.gtf.gz | grep -Ev '^#' | grep -w 'gene' | sed -e 's/^/chr/' -e 's/^chrMT/chrM/' > Mus_musculus.GRCm38.91.chr.gtf
+
+# convert to .bed
+Mus_musculus.GRCm38.91.chr.bed: Mus_musculus.GRCm38.91.chr.gtf
+	gtf2bed < Mus_musculus.GRCm38.91.chr.gtf > Mus_musculus.GRCm38.91.chr.bed
+
+
+
+
 # ~~~~~ CLEAN UP ~~~~~ #
 .INTERMEDIATE: gencode.v19.annotation.gtf.gz \
 	Homo_sapiens.GRCh37.82.gtf.gz \
@@ -82,6 +104,9 @@ Homo_sapiens.GRCh38.91.chr.bed: Homo_sapiens.GRCh38.91.chr.gtf
 	Homo_sapiens.GRCh38.91.chr.gtf \
 	Homo_sapiens.GRCh38.91.chr.gtf.gz \
 	Homo_sapiens.GRCh37.82.chr.gtf \
-	Homo_sapiens.GRCh37.82.chr.gtf.gz
+	Homo_sapiens.GRCh37.82.chr.gtf.gz \
+	Mus_musculus.GRCm38.91.chr.gtf.gz \
+	Mus_musculus.GRCm38.91.chr.gtf
+	
 	
 	
