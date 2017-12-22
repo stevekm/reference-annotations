@@ -4,8 +4,8 @@
 # no default action to take
 none:
 
-# make both sets of annotations
-all: gencode ensembl
+# make all sets of annotations
+all: gencode ensembl gencode-hg38
 
 
 # ~~~~~ GENCODE ~~~~~ #
@@ -17,6 +17,21 @@ gencode.v19.annotation.gtf.gz:
 
 gencode.v19.annotation.genes.bed: gencode.v19.annotation.gtf.gz
 	zcat gencode.v19.annotation.gtf.gz | grep -w gene | convert2bed --input=gtf - > gencode.v19.annotation.genes.bed
+
+
+
+
+# ~~~~~ GENCODE hg38 ~~~~~ #
+# generate the Gencode hg38 annotations .bed file
+
+gencode-hg38: gencode.v27.annotation.genes.bed
+
+gencode.v27.annotation.gtf.gz: 
+	wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_27/gencode.v27.annotation.gtf.gz
+
+gencode.v27.annotation.genes.bed: gencode.v27.annotation.gtf.gz
+	zcat gencode.v27.annotation.gtf.gz | grep -w gene | convert2bed --input=gtf - > gencode.v27.annotation.genes.bed
+
 
 
 # ~~~~~ ENSEMBL ~~~~~ #
