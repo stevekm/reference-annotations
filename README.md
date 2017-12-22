@@ -50,3 +50,7 @@ Intermediate files are removed by default. If you want to keep them, then commen
 - GNU `make`
 
 - [BEDOPS](http://bedops.readthedocs.io/en/latest/content/reference/file-management/conversion/gtf2bed.html) 
+
+# Resources
+
+Gencode Releases: https://www.gencodegenes.org/releases/
