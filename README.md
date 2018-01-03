@@ -42,6 +42,14 @@ The following files are created:
 
 - `ensembl-mm10`: `Mus_musculus.GRCm38.91.chr.bed`; Ensembl mm10 mouse gene annotations & genomic regions
 
+# Annotation Example
+
+In addition to general reference usage, these files can also be used to annotate other genomic region files with a [bedmap](http://bedops.readthedocs.io/en/latest/content/reference/statistics/bedmap.html) command like this:
+
+```bash
+bedmap --echo --echo-map-id --delim '\t' example-NGS-data/ChIP-Seq/bed/Sample1-D-H3K27AC/peaks.bed reference-annotations/gencode.v19.annotation.genes.id4.bed
+```
+
 # Notes
 
 Intermediate files are removed by default. If you want to keep them, then comment out the `.INTERMEDIATE` section in the `Makefile`.
@@ -49,6 +57,8 @@ Intermediate files are removed by default. If you want to keep them, then commen
 # Software
 
 - GNU `make`
+
+- `bash` shell
 
 - [BEDOPS](http://bedops.readthedocs.io/en/latest/content/reference/file-management/conversion/gtf2bed.html) 
 
