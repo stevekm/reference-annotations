@@ -1,5 +1,6 @@
 # make reference annotations for hg19 genes and gene symbols
 # requires BEDOPS http://bedops.readthedocs.io/en/latest/content/reference/file-management/conversion/gtf2bed.html
+SHELL:=/bin/bash
 
 # no default action to take
 none:
@@ -7,7 +8,7 @@ none:
 # make all sets of annotations
 all: gencode-hg19 ensembl-hg19 gencode-hg38 ensembl-hg38 ensembl-mm10
 
-gencode-hg19: gencode.v19.annotation.genes.bed
+gencode-hg19: gencode.v19.annotation.genes.id4.bed
 
 gencode-hg38: gencode.v27.annotation.genes.bed
 
@@ -28,8 +29,8 @@ gencode.v19.annotation.gtf.gz:
 gencode.v19.annotation.genes.bed: gencode.v19.annotation.gtf.gz
 	zcat gencode.v19.annotation.gtf.gz | grep -w gene | convert2bed --input=gtf - > gencode.v19.annotation.genes.bed
 
-
-
+gencode.v19.annotation.genes.id4.bed: gencode.v19.annotation.genes.bed
+	paste <(cut -f1-3 gencode.v19.annotation.genes.bed) <(grep -o 'gene_name ".*"' gencode.v19.annotation.genes.bed | sed -e 's|gene_name ||g' | cut -d ';' -f1 | tr -d '"') <(cut -f4- gencode.v19.annotation.genes.bed) > gencode.v19.annotation.genes.id4.bed
 
 # ~~~~~ GENCODE hg38 ~~~~~ #
 # generate the Gencode hg38 annotations .bed file
