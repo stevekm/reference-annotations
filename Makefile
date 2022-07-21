@@ -12,6 +12,8 @@ gencode-hg19: gencode.v19.annotation.genes.id4.bed
 
 gencode-hg38: gencode.v27.annotation.genes.bed
 
+gencode-hg38v41: gencode.v41.annotation.genes.bed
+
 ensembl-hg19: Homo_sapiens.GRCh37.82.chr.bed
 
 ensembl-hg38: Homo_sapiens.GRCh38.91.chr.bed
@@ -35,11 +37,16 @@ gencode.v19.annotation.genes.id4.bed: gencode.v19.annotation.genes.bed
 # ~~~~~ GENCODE hg38 ~~~~~ #
 # generate the Gencode hg38 annotations .bed file
 gencode.v27.annotation.gtf.gz: 
-	wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_27/gencode.v27.annotation.gtf.gz
+	wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_27/gencode.v27.annotation.gtf.gz
 
 gencode.v27.annotation.genes.bed: gencode.v27.annotation.gtf.gz
-	zcat gencode.v27.annotation.gtf.gz | grep -w gene | convert2bed --input=gtf - > gencode.v27.annotation.genes.bed
+	zcat gencode.v27.annotation.gtf.gz | grep -w gene | awk '{ if ($$0 ~ "transcript_id") print $$0; else print $$0" transcript_id \"\";"; }' | convert2bed --input=gtf - > gencode.v27.annotation.genes.bed
 
+gencode.v41.annotation.gtf.gz: 
+	wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_41/gencode.v41.annotation.gtf.gz
+
+gencode.v41.annotation.genes.bed: gencode.v41.annotation.gtf.gz
+	zcat gencode.v41.annotation.gtf.gz | grep -w gene |	awk '{ if ($$0 ~ "transcript_id") print $$0; else print $$0" transcript_id \"\";"; }' | convert2bed --input=gtf - > gencode.v41.annotation.genes.bed
 
 
 # ~~~~~ ENSEMBL hg19 ~~~~~ #
@@ -102,6 +109,7 @@ Mus_musculus.GRCm38.91.chr.bed: Mus_musculus.GRCm38.91.chr.gtf
 	Homo_sapiens.GRCh37.82.noGLMT.chr.bed \
 	Homo_sapiens.GRCh37.82.noGLMT.chr.gtf \
 	gencode.v27.annotation.gtf.gz \
+	gencode.v41.annotation.gtf.gz \
 	Homo_sapiens.GRCh38.91.chr.gtf \
 	Homo_sapiens.GRCh38.91.chr.gtf.gz \
 	Homo_sapiens.GRCh37.82.chr.gtf \
