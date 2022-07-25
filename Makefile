@@ -1,9 +1,15 @@
 # make reference annotations for hg19 genes and gene symbols
 # requires BEDOPS http://bedops.readthedocs.io/en/latest/content/reference/file-management/conversion/gtf2bed.html
 SHELL:=/bin/bash
+PATH:=$(CURDIR)/bin:$(PATH)
 
 # no default action to take
 none:
+
+# download for the Bedops programs needed
+bin:
+	wget https://github.com/bedops/bedops/releases/download/v2.4.41/bedops_linux_x86_64-v2.4.41.tar.bz2 && \
+	tar xjvf bedops_linux_x86_64-v2.4.41.tar.bz2
 
 # make all sets of annotations
 all: gencode-hg19 ensembl-hg19 gencode-hg38 ensembl-hg38 ensembl-mm10
@@ -25,8 +31,8 @@ ensembl-mm10: Mus_musculus.GRCm38.91.chr.bed
 
 # ~~~~~ GENCODE hg19 ~~~~~ #
 # generate the Gencode hg19 annotations .bed file
-gencode.v19.annotation.gtf.gz: 
-	wget ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_19/gencode.v19.annotation.gtf.gz
+gencode.v19.annotation.gtf.gz:
+	wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_19/gencode.v19.annotation.gtf.gz
 
 gencode.v19.annotation.genes.bed: gencode.v19.annotation.gtf.gz
 	zcat gencode.v19.annotation.gtf.gz | grep -w gene | convert2bed --input=gtf - > gencode.v19.annotation.genes.bed
@@ -36,13 +42,13 @@ gencode.v19.annotation.genes.id4.bed: gencode.v19.annotation.genes.bed
 
 # ~~~~~ GENCODE hg38 ~~~~~ #
 # generate the Gencode hg38 annotations .bed file
-gencode.v27.annotation.gtf.gz: 
+gencode.v27.annotation.gtf.gz:
 	wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_27/gencode.v27.annotation.gtf.gz
 
 gencode.v27.annotation.genes.bed: gencode.v27.annotation.gtf.gz
 	zcat gencode.v27.annotation.gtf.gz | grep -w gene | awk '{ if ($$0 ~ "transcript_id") print $$0; else print $$0" transcript_id \"\";"; }' | convert2bed --input=gtf - > gencode.v27.annotation.genes.bed
 
-gencode.v41.annotation.gtf.gz: 
+gencode.v41.annotation.gtf.gz:
 	wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_41/gencode.v41.annotation.gtf.gz
 
 gencode.v41.annotation.genes.bed: gencode.v41.annotation.gtf.gz
@@ -51,7 +57,7 @@ gencode.v41.annotation.genes.bed: gencode.v41.annotation.gtf.gz
 
 # ~~~~~ ENSEMBL hg19 ~~~~~ #
 # generate the Ensembl hg19 annotations .bed file
-Homo_sapiens.GRCh37.82.chr.gtf.gz: 
+Homo_sapiens.GRCh37.82.chr.gtf.gz:
 	wget ftp://ftp.ensembl.org/pub/grch37/release-84/gtf/homo_sapiens/Homo_sapiens.GRCh37.82.chr.gtf.gz
 
 # remove comment lines
@@ -116,6 +122,3 @@ Mus_musculus.GRCm38.91.chr.bed: Mus_musculus.GRCm38.91.chr.gtf
 	Homo_sapiens.GRCh37.82.chr.gtf.gz \
 	Mus_musculus.GRCm38.91.chr.gtf.gz \
 	Mus_musculus.GRCm38.91.chr.gtf
-	
-	
-	
