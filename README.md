@@ -10,6 +10,8 @@ git clone https://github.com/stevekm/reference-annotations.git
 cd reference-annotations
 ```
 
+(if you do not have BEDOPS installed and in your PATH you can also run the `make bin` recipe to download it in the current dir)
+
 Generate the desired annotation files from the available entries:
 
 - `all`, `gencode-hg19`, `gencode-hg38`, `gencode-hg38v41`, `ensembl-hg19`, `ensembl-hg38`, `ensembl-mm10`
@@ -62,7 +64,7 @@ Intermediate files are removed by default. If you want to keep them, then commen
 
 - `bash` shell
 
-- [BEDOPS](http://bedops.readthedocs.io/en/latest/content/reference/file-management/conversion/gtf2bed.html) 
+- [BEDOPS](http://bedops.readthedocs.io/en/latest/content/reference/file-management/conversion/gtf2bed.html)
 
 # Resources
 
